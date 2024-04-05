@@ -20,6 +20,13 @@ dependencies {
     // (in a separate module for demo project and in testMain).
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
+
+    // https://github.com/sfuhrm/yahoofinance-api
+    implementation("de.sfuhrm:YahooFinanceAPI:3.16.4")
+
+    implementation(kotlin("test"))
+    @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+    implementation(compose.uiTest)
 }
 
 compose.desktop {

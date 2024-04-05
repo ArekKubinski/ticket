@@ -15,19 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-    repositories {
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
+package retrofit.model
 
-    plugins {
-        kotlin("jvm").version(extra["kotlin.version"] as String)
-        id("org.jetbrains.compose").version(extra["compose.version"] as String)
-        id("com.google.devtools.ksp").version("1.9.21-1.0.15")
-    }
-}
-
-rootProject.name = "ticket"
+data class NasdaqStatus(
+    val rCode: Int,
+    val bCodeMessage: String? = null,
+    val developerMessage: String? = null
+)

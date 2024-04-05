@@ -15,19 +15,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-    repositories {
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
+package retrofit.model
 
-    plugins {
-        kotlin("jvm").version(extra["kotlin.version"] as String)
-        id("org.jetbrains.compose").version(extra["compose.version"] as String)
-        id("com.google.devtools.ksp").version("1.9.21-1.0.15")
-    }
-}
+import com.google.gson.annotations.SerializedName
 
-rootProject.name = "ticket"
+data class NasdaqData(
+    val table: NasdaqDataTable,
+    @SerializedName("totalrecords")
+    val totalRecords: Int,
+    @SerializedName("asof")
+    val asOf: String? = null
+)

@@ -15,19 +15,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-    repositories {
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
+package retrofit.dao
 
-    plugins {
-        kotlin("jvm").version(extra["kotlin.version"] as String)
-        id("org.jetbrains.compose").version(extra["compose.version"] as String)
-        id("com.google.devtools.ksp").version("1.9.21-1.0.15")
-    }
+import retrofit.model.NasdaqResponse
+import retrofit2.Call
+import retrofit2.http.GET
+
+interface NasdaqDao {
+    @GET("api/screener/stocks")
+    fun getStocks(): Call<NasdaqResponse>
 }
-
-rootProject.name = "ticket"

@@ -15,15 +15,17 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package retrofit.dao
+package useCase
 
-import retrofit.model.NasdaqResponse
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
+import repository.NasdaqRepository
+import retrofit.model.*
 
-interface NasdaqDao {
-    @Headers("Content-Type: application/json")
-    @GET("api/screener/stocks")
-    fun getStocks(): Call<NasdaqResponse>
+class FetchNasdaqStocksUseCase(
+	private val nasdaqRepository: NasdaqRepository
+) {
+
+	suspend operator fun invoke(): NasdaqResponse {
+		val fetch = nasdaqRepository.getStocks()
+		return fetch ?: NasdaqResponse(NasdaqData(NasdaqDataTable(headers = NasdaqDataTableHeaders("","","","","",""), rows = listOf()), 0), null, NasdaqStatus(1))
+	}
 }

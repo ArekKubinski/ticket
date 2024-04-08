@@ -17,9 +17,38 @@
 
 package retrofit.database
 
-import dagger.Module
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit.dao.NasdaqDao
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
-@Module
 object RemoteDatabase {
 	private const val API_NASDAQ = "https://api.nasdaq.com/"
+	
+	var errorHandlerMainActivityCallback: ((Throwable) -> Unit)? = null
+	
+	fun provideCoroutineContext() = Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
+		errorHandlerMainActivityCallback?.let { it(throwable) }
+	}
+	
+	fun provideNasdaqDAO(): NasdaqDao {
+		val httpClient = OkHttpClient.Builder()
+			.connectTimeout(10, TimeUnit.SECONDS)
+			.readTimeout(30, TimeUnit.SECONDS)
+			.writeTimeout(30, TimeUnit.SECONDS)
+			.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+		val retrofitBuilder = Retrofit.Builder()
+			.baseUrl(API_NASDAQ)
+			.addConverterFactory(GsonConverterFactory.create(Gson()))
+			.callbackExecutor(Executors.newSingleThreadExecutor())
+		val retrofit = retrofitBuilder.client(httpClient.build()).build()
+		
+		return retrofit.create(NasdaqDao::class.java)
+	}
 }

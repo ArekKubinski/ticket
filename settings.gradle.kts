@@ -18,15 +18,15 @@
 pluginManagement {
     repositories {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        mavenCentral()
         google()
         gradlePluginPortal()
-        mavenCentral()
     }
 
     plugins {
         kotlin("jvm").version(extra["kotlin.version"] as String)
         id("org.jetbrains.compose").version(extra["compose.version"] as String)
-        id("com.google.devtools.ksp").version("1.9.21-1.0.15")
+        id("com.google.devtools.ksp").version("1.9.22-1.0.18")
     }
 }
 

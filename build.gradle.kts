@@ -41,16 +41,12 @@ dependencies {
 
     // https://github.com/sfuhrm/yahoofinance-api
     implementation("de.sfuhrm:YahooFinanceAPI:3.16.4")
-    
-    //dagger
-    implementation("com.google.dagger:dagger:2.51.1")
-    ksp("com.google.dagger:dagger-compiler:2.51.1")
 
     //retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10")
-    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
 
     implementation(kotlin("test"))
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)

@@ -18,7 +18,7 @@
 package useCase
 
 import repository.NasdaqRepository
-import retrofit.model.*
+import remote.model.*
 
 class FetchNasdaqStocksUseCase(
 	private val nasdaqRepository: NasdaqRepository

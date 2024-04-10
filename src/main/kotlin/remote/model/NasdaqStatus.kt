@@ -15,18 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package retrofit.model
+package remote.model
 
-import com.google.gson.annotations.SerializedName
-
-data class NasdaqDataTableHeaders(
-    val symbol: String,
-    val name: String,
-	@SerializedName("lastsale")
-    val lastSale: String,
-	@SerializedName("netchange")
-    val netChange: String,
-	@SerializedName("pctchange")
-    val pctChange: String,
-    val marketCap: String
+data class NasdaqStatus(
+    val rCode: Int,
+    val bCodeMessage: String? = null,
+    val developerMessage: String? = null
 )

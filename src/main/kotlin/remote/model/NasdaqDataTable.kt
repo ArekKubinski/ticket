@@ -15,14 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package retrofit.model
+package remote.model
 
-import com.google.gson.annotations.SerializedName
-
-data class NasdaqData(
-    val table: NasdaqDataTable,
-    @SerializedName("totalrecords")
-    val totalRecords: Int,
-    @SerializedName("asof")
-    val asOf: String? = null
-)
+data class NasdaqDataTable(
+    val asOf: String? = null,
+    val headers: NasdaqDataTableHeaders,
+    val rows: List<NasdaqDataTableRow>
+    )

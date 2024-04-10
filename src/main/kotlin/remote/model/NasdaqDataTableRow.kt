@@ -15,10 +15,19 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package retrofit.model
+package remote.model
 
-data class NasdaqResponse(
-    val data: NasdaqData,
-    val message: String? = null,
-    val status: NasdaqStatus
+import com.google.gson.annotations.SerializedName
+
+data class NasdaqDataTableRow(
+	val symbol: String,
+	val name: String,
+	@SerializedName("lastsale")
+	val lastSale: String,
+	@SerializedName("netchange")
+	val netChange: String,
+	@SerializedName("pctchange")
+	val pctChange: String,
+	val marketCap: String,
+	val url: String
 )

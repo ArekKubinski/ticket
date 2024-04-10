@@ -15,15 +15,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package retrofit.dao
+package remote.model
 
-import retrofit.model.NasdaqResponse
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
+import com.google.gson.annotations.SerializedName
 
-interface NasdaqDao {
-    @Headers("Content-Type: application/json")
-    @GET("api/screener/stocks")
-    fun getStocks(): Call<NasdaqResponse>
-}
+data class NasdaqData(
+    val table: NasdaqDataTable,
+    @SerializedName("totalrecords")
+    val totalRecords: Int,
+    @SerializedName("asof")
+    val asOf: String? = null
+)

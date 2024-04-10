@@ -15,10 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package retrofit.model
+package remote.model
 
-data class NasdaqDataTable(
-    val asOf: String? = null,
-    val headers: NasdaqDataTableHeaders,
-    val rows: List<NasdaqDataTableRow>
-    )
+data class NasdaqResponse(
+    val data: NasdaqData,
+    val message: String? = null,
+    val status: NasdaqStatus
+)

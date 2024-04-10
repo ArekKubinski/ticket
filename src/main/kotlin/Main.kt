@@ -21,13 +21,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.application
+import kong.unirest.core.Unirest
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import remote.model.NasdaqResponse
 import repository.NasdaqRepository
-import retrofit.database.RemoteDatabase
-import retrofit.model.NasdaqResponse
 import useCase.FetchNasdaqStocksUseCase
+
 
 @Composable
 @Preview
@@ -50,10 +51,10 @@ private val coroutineExceptionHandler =
 
 fun main() = application {
     val ioScope = rememberCoroutineScope { Dispatchers.IO + coroutineExceptionHandler }
-    val fetch = remember { FetchNasdaqStocksUseCase(NasdaqRepository(RemoteDatabase.provideNasdaqDAO())) }
+    val fetch = remember { FetchNasdaqStocksUseCase(NasdaqRepository()) }
     val stocks = remember { ioScope.launch {
         val i = fetch.invoke()
-        println(i)
+        println(i.status)
         exitApplication()
     } }
 //    Window(onCloseRequest = ::exitApplication) {

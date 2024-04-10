@@ -41,12 +41,10 @@ dependencies {
 
     // https://github.com/sfuhrm/yahoofinance-api
     implementation("de.sfuhrm:YahooFinanceAPI:3.16.4")
-
-    //retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10")
-    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
+    
+    implementation(platform("com.konghq:unirest-java-bom:4.3.0"))
+    implementation("com.konghq:unirest-java-core")
+    implementation("com.konghq:unirest-modules-gson")
 
     implementation(kotlin("test"))
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)

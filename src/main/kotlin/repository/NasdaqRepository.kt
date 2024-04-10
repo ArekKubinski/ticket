@@ -17,41 +17,16 @@
 
 package repository
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import okhttp3.internal.http2.StreamResetException
-import retrofit.dao.NasdaqDao
-import retrofit.model.NasdaqResponse
-import retrofit2.Response
+import kong.unirest.core.Unirest
+import remote.model.NasdaqResponse
 
 @Suppress("RedundantSuspendModifier")
-open class NasdaqRepository(
-	private val nasdaqDao: NasdaqDao
-) {
+open class NasdaqRepository {
 	
 	suspend fun getStocks(done: ((response: NasdaqResponse?) -> Unit)? = null): NasdaqResponse? {
-		val result: Response<NasdaqResponse>
-		try {
-			result = nasdaqDao.getStocks().execute()
-		} catch (e: StreamResetException) {
-			e.printStackTrace()
-			return null
-		}
-		if (result.isSuccessful) {
-			done?.invoke(result.body())
-			return result.body()
-		} else {
-			val gson = Gson()
-			val type = object : TypeToken<NasdaqResponse>() {}.type
-			val errorResponse: NasdaqResponse? =
-				gson.fromJson(result.errorBody()!!.charStream(), type)
-			if (errorResponse != null) {
-				done?.invoke(errorResponse)
-				return errorResponse
-			} else {
-				done?.invoke(null)
-				return null
-			}
-		}
+		val response = Unirest.get("https://api.nasdaq.com/api/screener/stocks")
+			.asObject(NasdaqResponse::class.java).body
+		done?.invoke(response)
+		return response
 	}
 }

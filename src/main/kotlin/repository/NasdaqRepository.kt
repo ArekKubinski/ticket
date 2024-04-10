@@ -24,7 +24,7 @@ import remote.model.NasdaqResponse
 open class NasdaqRepository {
 	
 	suspend fun getStocks(done: ((response: NasdaqResponse?) -> Unit)? = null): NasdaqResponse? {
-		val response = Unirest.get("https://api.nasdaq.com/api/screener/stocks")
+		val response = Unirest.get("https://api.nasdaq.com/api/screener/stocks?limit=10000")
 			.asObject(NasdaqResponse::class.java).body
 		done?.invoke(response)
 		return response

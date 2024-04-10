@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 import remote.model.NasdaqResponse
 import repository.NasdaqRepository
 import useCase.FetchNasdaqStocksUseCase
+import yahoofinance.YahooFinance
 
 
 @Composable
@@ -54,7 +55,14 @@ fun main() = application {
     val fetch = remember { FetchNasdaqStocksUseCase(NasdaqRepository()) }
     val stocks = remember { ioScope.launch {
         val i = fetch.invoke()
-        println(i.status)
+        println(i.data.totalRecords)
+        for (j in i.data.table.rows) {
+            println(j.symbol)
+        }
+        val response = Unirest.get("https://api.nasdaq.com/api/screener/stocks?limit=10000")
+            .asObject(NasdaqResponse::class.java).body
+        val y = YahooFinance.get("WIA")
+        println(y)
         exitApplication()
     } }
 //    Window(onCloseRequest = ::exitApplication) {
